@@ -1,0 +1,20 @@
+*{
+margin:0px; 
+padding:0px; 
+}
+.cards-box{
+display:flex; 
+flex-direction:column; 
+}
+
+.card{
+width:20px; 
+height:40px; 
+background-color:pink; 
+}
+.top-div{
+display: flex!important; 
+}
+.second-div{
+display: flex;
+}
