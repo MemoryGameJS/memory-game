@@ -77,7 +77,7 @@ const check = (toggled,element) =>{
       toggled[1][0].removeEventListener('click', clickFunction);
       matches++;
       changescore(matches);
-  // console.log(matches);
+
   }
   else{
     error();
