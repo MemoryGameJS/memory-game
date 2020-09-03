@@ -7,6 +7,7 @@ let matches = 0;
 let moves = 0;
 var selectedColor = "";
 var counter = 0;
+var isclicked=false;
 var arr=["gold","white","orange", "pink" ,"navy","red","blue","grey","yellow","cyan","green","ruby"];
 
 const shuffle = (array) =>{
@@ -17,26 +18,47 @@ const shuffle = (array) =>{
   return array;
 }
 arr=shuffle(arr);
+console.log(arr);
 
 
 cards.forEach(c =>{
-  c.classList.add(arr[i%12]);
+ // c.classList.add(arr[i%12]);
+ console.log(c,arr[i%12]);
+ c.classList.add(arr[i%12]);
+ //console.log(c);
   i++;
 });
+var underprocess=false;
+var firstclicked;
 var toggled=[];
 const clickFunction = (c) =>{
+  if(underprocess)
+  return;
+  if(firstclicked===c)  // handling if the same card is clicked again 
+  return;
   myPlay();
-  if(count<=1)
-    c.className = c.className.replace("hidden","");
-  toggled.push([c,c.classList[1]])
+  c.className = c.className.replace("hidden","");
+  toggled.push([c,c.classList[1]]);
   count++;
-  if(count==2)
+  if(!isclicked)
   {
+  isclicked=true;
+  firstclicked=c;
+  return;
+  }
+  // secondclicked=c;
+  if(count==2)
+  {  
+    firstclicked="";
+    isclicked=false;
+    underprocess = true;
     setTimeout(()=>{
       check(toggled,c);
       console.log(toggled);
       count=0;
       toggled = [];
+      underprocess=false;
+  
     },1100);
   }
 }
@@ -45,15 +67,17 @@ cards.forEach(c => {
   c.addEventListener('click',(event) => clickFunction(c,event));
 });
 const check = (toggled,element) =>{
+  //underprocess=true;
  
   if(toggled[0][1]==toggled[1][1])
-  {  
+  { 
     myWin();
-   toggled[0][0].removeEventListener('click', clickFunction);
-   toggled[1][0].removeEventListener('click', clickFunction);
-   matches++;
-   changescore(matches);
-   console.log(matches);
+   
+      toggled[0][0].removeEventListener('click', clickFunction);
+      toggled[1][0].removeEventListener('click', clickFunction);
+      matches++;
+      changescore(matches);
+  // console.log(matches);
   }
   else{
     error();
@@ -64,6 +88,7 @@ const check = (toggled,element) =>{
   let score=moves*10;
   let ele=document.getElementById("score").innerHTML;
   ele="score";
+  underprocess=false;
 }
 var limit=120;
 function startcountdown(){
