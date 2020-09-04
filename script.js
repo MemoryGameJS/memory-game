@@ -18,19 +18,22 @@ const shuffle = (array) =>{
   return array;
 }
 arr=shuffle(arr);
-console.log(arr);
+//console.log(arr);
 
 
 cards.forEach(c =>{
  // c.classList.add(arr[i%12]);
- console.log(c,arr[i]);
+ //console.log(c,arr[i]);
  c.classList.add(arr[i]);
  //console.log(c);
   i++;
 });
 var underprocess=false;
-var firstclicked;
+var firstclicked,secondclicked;
 var toggled=[];
+cards.forEach(c => {
+  c.addEventListener('click',(event) => clickFunction(c,event));
+});
 const clickFunction = (c) =>{
   if(underprocess)
   return;
@@ -46,38 +49,35 @@ const clickFunction = (c) =>{
   firstclicked=c;
   return;
   }
-  // secondclicked=c;
+   secondclicked=c;
   if(count==2)
   {  
-    firstclicked="";
+    
     isclicked=false;
     underprocess = true;
     setTimeout(()=>{
-      check(toggled,c);
-      console.log(toggled);
+      check(toggled,c,firstclicked,secondclicked);
+     // console.log(toggled);
       count=0;
       toggled = [];
       underprocess=false;
   
     },1100);
+    firstclicked="";
+    secondclicked="";
   }
 }
-
-cards.forEach(c => {
-  c.addEventListener('click',(event) => clickFunction(c,event));
-});
-const check = (toggled,element) =>{
-  //underprocess=true;
+const check = (toggled,element,firstclicked,secondclicked) =>{
  
   if(toggled[0][1]==toggled[1][1])
   { 
     myWin();
    
-      toggled[0][0].removeEventListener('click', clickFunction);
-      toggled[1][0].removeEventListener('click', clickFunction);
+      firstclicked.removeEventListener('click', clickFunction);
+      secondclicked.removeEventListener('click', clickFunction);
+      console.log(toggled[0][0],toggled[1][0]);
       matches++;
       changescore(matches);
-  // console.log(matches);
   }
   else{
     error();
@@ -125,6 +125,5 @@ function changescore(matches)
 {
  var element=document.getElementById("scores");
 element.innerHTML=matches*10;
-console.log(element.innerHTML);
-
+//console.log(element.innerHTML);
 }
