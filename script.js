@@ -8,7 +8,7 @@ let moves = 0;
 var selectedColor = "";
 var counter = 0;
 var isclicked=false;
-var arr=["gold","white","orange", "pink" ,"navy","red","blue","grey","yellow","cyan","green","ruby"];
+var arr=["gold","white","orange", "pink" ,"navy","red","blue","grey","yellow","cyan","green","ruby","gold","white","orange", "pink" ,"navy","red","blue","grey","yellow","cyan","green","ruby"];
 
 const shuffle = (array) =>{
   for (let i = array.length - 1; i > 0; i--) {
@@ -23,8 +23,8 @@ console.log(arr);
 
 cards.forEach(c =>{
  // c.classList.add(arr[i%12]);
- console.log(c,arr[i%12]);
- c.classList.add(arr[i%12]);
+ console.log(c,arr[i]);
+ c.classList.add(arr[i]);
  //console.log(c);
   i++;
 });
@@ -77,7 +77,7 @@ const check = (toggled,element) =>{
       toggled[1][0].removeEventListener('click', clickFunction);
       matches++;
       changescore(matches);
-
+  // console.log(matches);
   }
   else{
     error();
